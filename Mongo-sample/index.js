@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const { MyModel } = require('./modelDefinition');
+const dotenv = require('dotenv'); // Import dotenv
 
-mongoose.connect('mongodb+srv://nikhil:mdbpass123@cluster0.60gaknu.mongodb.net/')
+// Load environment variables from .env file
+dotenv.config();
+const MONGO_URL = process.env.DB_CONNECTION_STRING;
+mongoose.connect(MONGO_URL)
   .then(() => console.log('Connected!'));
   
 // Create the model
