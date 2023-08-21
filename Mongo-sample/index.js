@@ -7,21 +7,29 @@ dotenv.config();
 const MONGO_URL = process.env.DB_CONNECTION_STRING;
 mongoose.connect(MONGO_URL)
   .then(() => console.log('Connected!'));
-  
-// Create the model
 
-
-// Create an instance of the model and save it
-const instance = new MyModel({
-  title: "Something",
-  body: "Anything",
-  date: Date.now()
-});
-
-instance.save()
-  .then(savedInstance => {
-    console.log("Saved instance:", savedInstance);
-  })
-  .catch(error => {
-    console.error("Error saving instance:", error);
+async function storeData(name, age, address) {
+  let response
+  const instance = new MyModel({
+    _id: new mongoose.Types.ObjectId(23),
+    name: name,
+    age: age,
+    address: address,
+    dob: Date.now()
   });
+  await instance.save()
+    .then(savedInstance => {
+      console.log("Saved instance:", savedInstance);
+      response =  savedInstance
+    })
+    .catch(error => {
+      console.error("Error saving instance:", error);
+    });
+  return response
+  }
+
+
+module.exports = storeData;
+
+
+
